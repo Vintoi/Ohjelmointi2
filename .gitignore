@@ -1,2 +1,5 @@
 *.pro.user
 student/build*
+examples/build*
+templates/build*
+build/*
