@@ -23,7 +23,7 @@ int main()
                     //cout << erotus << " " << pienin <<" " << i << endl;
                 }
         }
-        cout << num <<" = " << num/pienin << " * "<< pienin << endl;
+        cout << num <<" = " << pienin << " * "<< num/pienin << endl;
     }
     return 0;
 }
