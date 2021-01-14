@@ -8,7 +8,7 @@ int main()
     int num = 0;
     std::cin >> num;
     int eka = 0;
-    int toka = 2;
+    //int toka = 2;
     if(num % 2 == 0) {
         eka = num / 2;
     }
