@@ -8,6 +8,10 @@ int main()
     std::cin >> num;
 
     for (int i = 1; i <= num; ++i){
-        std::cout << i << std::endl;
+        if (i % 3 == 0) {
+            std::cout << "zip" << std::endl;
+        } else {
+            std::cout << i << std::endl;
+        }
     }
 }
