@@ -4,11 +4,10 @@
 
 using namespace std;
 
-
 int main()
 {
     int r_value = 0;
-    string key;
+    string key, teksti, uusi_teksti;
     string aakkoset = "abcdefghijklmnopqrstuvwxyz";
 
     cout << "Enter the encryption key: " ;
@@ -16,7 +15,6 @@ int main()
 
     string::size_type pituus = 0;
     pituus = key.length();
-
 
     char kirjain;
     bool iso = false;
@@ -33,7 +31,6 @@ int main()
             aakkosia += 1;
             temp.erase(kohta,1);
         }
-
     }
     if(pituus != 26){
         cout << "Error! The encryption key must contain 26 characters."<<endl;
@@ -47,6 +44,20 @@ int main()
         r_value = 1;
     }
 
+    if (r_value == 0){
+        cout << "Enter the text to be encrypted: ";
+        cin >> teksti;
+        char old_c, new_c;
+        int char_pos;
+        for(unsigned int i = 0; i < teksti.length();++i){
+            old_c = teksti.at(i);
+            char_pos = aakkoset.find(old_c);
+            new_c = key.at(char_pos);
+            uusi_teksti += new_c;
+        }
+        cout <<  "Encrypted text: " << uusi_teksti <<endl;
+        r_value = 0;
+    }
 
 
     return r_value;
