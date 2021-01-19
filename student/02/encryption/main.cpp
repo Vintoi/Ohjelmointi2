@@ -1,9 +1,12 @@
 #include <iostream>
+#define EXIT_SUCCESS    0
+#define EXIT_FAILURE    1
 
 using namespace std;
 
 int main()
 {
+    int r_value = 1;
     string key;
     cout << "Enter the encryption key: " ;
     cin >> key;
@@ -12,7 +15,7 @@ int main()
     pituus = key.length();
     if(pituus != 26){
         cout << "Error! The encryption key must contain 26 characters."<<endl;
-        return EXIT_FAILURE;
+        r_value = 1;
     }
     char kirjain;
     bool iso = false;
@@ -25,8 +28,8 @@ int main()
     }
     if (iso == true){
         cout << "Error! The encryption key must contain only lower case characters" << endl;
-        return EXIT_FAILURE;
+        r_value = 1;
     }
 
-    return 0;
+    return r_value;
 }
