@@ -19,7 +19,7 @@ void Book::print()
     if (lainassa_ == false){
         cout << "- available" << endl;
     } else {
-        cout << "- loanded: ";
+        cout << "- loaned: ";
         lainauspaiva.print();
         cout << "- to be returned: ";
         palautuspaiva.print();
