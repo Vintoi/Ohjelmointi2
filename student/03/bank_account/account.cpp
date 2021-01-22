@@ -40,7 +40,7 @@ void Account::set_credit_limit(int raha){
 
 void Account::print() const{
     cout << "" << owner_ << " : " << iban_ << " : " << saldo_ << " euros" << endl;
-    cout << "credit limit: " << credit_limit_ << endl;
+    //cout << "credit limit: " << credit_limit_ << endl;
 }
 
 void Account::save_money(int raha){
