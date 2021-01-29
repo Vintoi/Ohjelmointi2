@@ -20,17 +20,27 @@ bool same_values(std::vector<int> ints)
 {
     bool totuus = false;
 
-
-    for(unsigned int i = 0; i < ints.size() ; ++i)
+    for(unsigned int i = 1; i < ints.size() ; ++i)
     {
-        if(i == ints.size()-1){
-            break;
-        }
-        if (ints.at(i) == ints.at(i+1)){
+
+        if (ints.at(0) == ints.at(i)){
             totuus = true;
-            break;
+
         } else {
             totuus = false;
+        }
+    }
+    return totuus;
+}
+bool is_ordered_non_strict_ascending(std::vector<int>& ints){
+    bool totuus = false;
+    for(unsigned int i = 1; i < ints.size() ; ++i)
+    {
+        if (ints.at(i-1) > ints.at(i)){
+            totuus = false;
+            break;
+        } else {
+            totuus = true;
         }
     }
     return totuus;
@@ -56,12 +66,12 @@ int main()
         std::cout << "All the integers are the same" << std::endl;
     else
         std::cout << "All the integers are not the same" << std::endl;
-    /*
+
     if(is_ordered_non_strict_ascending(integers))
         std::cout << "The integers are in a non-strict ascending order" << std::endl;
     else
         std::cout << "The integers are not in a non-strict ascending order" << std::endl;
-
+    /*
     if(is_arithmetic_series(integers))
         std::cout << "The integers form an arithmetic series" << std::endl;
     else
