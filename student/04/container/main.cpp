@@ -47,10 +47,15 @@ bool is_ordered_non_strict_ascending(std::vector<int>& ints){
 }
 bool is_arithmetic_series(std::vector<int>& ints){
     bool totuus = false;
+    int ratio = ints.at(1) - ints.at(0);
     for(unsigned int i = 1; i < ints.size() ; ++i){
-
+        int vertailtava = ints.at(i) - ints.at(i-1);
+        if (vertailtava != ratio){
+            totuus = false;
+        } else {
+            totuus = true;
+        }
     }
-
     return totuus;
 }
 
@@ -58,7 +63,10 @@ bool is_geometric_series(std::vector<int>& ints){
     bool totuus = false;
     for(unsigned int i = 1; i < ints.size() ; ++i)
     {
-        if(ints.at(i-1)+ints.at(i-1) == ints.at(i)){
+        if (ints.at(i-1)+ints.at(i-1) == 0 && ints.at(i) == 0){
+            totuus = false;
+            break;
+        } else if(ints.at(i-1)+ints.at(i-1) == ints.at(i)){
             totuus = true;
 
         } else{
