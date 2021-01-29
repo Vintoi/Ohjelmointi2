@@ -66,7 +66,7 @@ bool is_geometric_series(std::vector<int>& ints){
         if (ints.at(i-1)+ints.at(i-1) == 0 && ints.at(i) == 0){
             totuus = false;
             break;
-        } else if(ints.at(i-1)+ints.at(i-1) == ints.at(i)){
+        } else if(ints.at(i-1)+ints.at(i-1) == ints.at(i) || same_values(ints)){
             totuus = true;
 
         } else{
