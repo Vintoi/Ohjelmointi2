@@ -16,7 +16,25 @@ void read_integers(std::vector< int >& ints, int count)
 }
 
 // TODO: Implement your solution here
+bool same_values(std::vector<int> ints)
+{
+    bool totuus = false;
 
+
+    for(unsigned int i = 0; i < ints.size() ; ++i)
+    {
+        if(i == ints.size()-1){
+            break;
+        }
+        if (ints.at(i) == ints.at(i+1)){
+            totuus = true;
+            break;
+        } else {
+            totuus = false;
+        }
+    }
+    return totuus;
+}
 
 int main()
 {
@@ -26,18 +44,19 @@ int main()
 
     std::cout << "Enter the integers: ";
     std::vector<int> integers;
-
     read_integers(integers, how_many);
+
+    /*
     for (int i = 0; i < integers.size() ; ++i){
         std::cout<<integers.at(i)<< std::endl;
     }
+    */
 
-    /*
     if(same_values(integers))
         std::cout << "All the integers are the same" << std::endl;
     else
         std::cout << "All the integers are not the same" << std::endl;
-
+    /*
     if(is_ordered_non_strict_ascending(integers))
         std::cout << "The integers are in a non-strict ascending order" << std::endl;
     else
