@@ -45,6 +45,28 @@ bool is_ordered_non_strict_ascending(std::vector<int>& ints){
     }
     return totuus;
 }
+bool is_arithmetic_series(std::vector<int>& ints){
+    bool totuus = false;
+    for(unsigned int i = 1; i < ints.size() ; ++i){
+
+    }
+
+    return totuus;
+}
+
+bool is_geometric_series(std::vector<int>& ints){
+    bool totuus = false;
+    for(unsigned int i = 1; i < ints.size() ; ++i)
+    {
+        if(ints.at(i-1)+ints.at(i-1) == ints.at(i)){
+            totuus = true;
+
+        } else{
+            totuus = false;
+        }
+    }
+    return totuus;
+}
 
 int main()
 {
@@ -71,7 +93,7 @@ int main()
         std::cout << "The integers are in a non-strict ascending order" << std::endl;
     else
         std::cout << "The integers are not in a non-strict ascending order" << std::endl;
-    /*
+
     if(is_arithmetic_series(integers))
         std::cout << "The integers form an arithmetic series" << std::endl;
     else
@@ -81,6 +103,6 @@ int main()
         std::cout << "The integers form a geometric series" << std::endl;
     else
         std::cout << "The integers do not form a geometric series" << std::endl;
-    */
+
     return EXIT_SUCCESS;
 }
