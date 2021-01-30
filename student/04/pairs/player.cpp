@@ -11,7 +11,7 @@
 // It should be enough to write only 1-2 code lines in each public method.
 
 Player::Player(const std::string &name):
-    name_(name),parit_(kortit.size())
+    name_(name),parit_(0)
 {
 
 }
@@ -23,17 +23,19 @@ std::string Player::get_name() const
 
 unsigned int Player::number_of_pairs() const
 {
-    return kortit.size();
+
+    return parit_;
 }
 
 void Player::add_card(Card &card)
 {
     kortit.push_back(card);
+    parit_ += 1;
 }
 
 void Player::print() const
 {
-    std::cout<< "*** "<< name_ << " has "<< parit_ << " pair(s)" <<std::endl;
+    std::cout<< "*** "<< name_ << " has "<< number_of_pairs() << " pair(s)" <<std::endl;
 }
 
 

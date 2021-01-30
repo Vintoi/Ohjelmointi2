@@ -1,3 +1,17 @@
+/* Muistipeli
+ *
+ * Kuvaus:
+ *
+ * Ohjelman kirjoittaja
+ * Nimi: Oskari Kolehmainen
+ * Opiskelijanumero: 123456
+ * Käyttäjätunnus: shosko
+ * E-Mail: oskari.kolehmainen@tuni.fi
+ *
+ * Huomioita ohjelmasta ja sen toteutuksesta:
+ *
+ * */
+
 #include <player.hh>
 #include <card.hh>
 #include <iostream>
@@ -194,6 +208,7 @@ void print(const Game_board_type& g_board)
         for(unsigned int j = 0; j < columns; ++j)
         {
             g_board.at(i).at(j).print();
+
             cout << " ";
         }
         cout << "|" << endl;
@@ -248,7 +263,9 @@ void ask_players(std::vector<Player>& pelaajat, int maara){
     }
 
 }
+void guess_card(){
 
+}
 
 int main()
 {
@@ -266,7 +283,6 @@ int main()
     int seed = stoi_with_check(seed_str);
     init_with_cards(game_board, seed);
 
-
     // Lisää koodia
     // More code
     int maara = ask_player_count();
@@ -282,6 +298,21 @@ int main()
     }
     */
     print(game_board);
+
+    /*
+    int parit = game_board.size()*game_board.at(0).size() / 2 ;
+    int loydetty = 0;
+    while (loydetty < parit){
+        for (unsigned int i = 0; i < pelaajat.size(); ++i){
+            loydetty = loydetty + pelaajat.at(i).number_of_pairs();
+        }
+        std::cout<<pelaajat.at(0).number_of_pairs() << endl;
+
+    }
+
+    std::cout << parit << std::endl;
+    pelaajat.at(0).print();
+    */
 
     return EXIT_SUCCESS;
 }

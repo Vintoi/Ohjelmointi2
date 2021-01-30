@@ -55,7 +55,7 @@ private:
     // Lisää tarvittavat attribuutit tähän
     // Add necessary attributes here
     std::string name_;
-    int parit_;
+    unsigned int parit_;
     std::vector<Card> kortit;
 };
 
