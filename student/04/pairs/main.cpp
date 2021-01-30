@@ -270,14 +270,18 @@ int main()
     // Lisää koodia
     // More code
     int maara = ask_player_count();
-    std::cout << "List "<<maara << " players " ;
+    if(maara == 1){
+        std::cout << "List "<<maara << " player: " ;
+    } else {
+        std::cout << "List "<<maara << " players: " ;
+    }
     ask_players(pelaajat,maara);
     /*
     for (unsigned int i = 0; i < pelaajat.size() ; ++i){
         std::cout << pelaajat.at(i).get_name() << std::endl;
     }
     */
-    //print(game_board);
+    print(game_board);
 
     return EXIT_SUCCESS;
 }
