@@ -1,10 +1,12 @@
 /* Muistipeli
  *
  * Kuvaus:
+ * Ohjelma totetuttaa muistipelin. Toteutus ja kommentit ovat vielä vaiheessa.
+ *
  *
  * Ohjelman kirjoittaja
  * Nimi: Oskari Kolehmainen
- * Opiskelijanumero: 123456
+ * Opiskelijanumero: 050340147
  * Käyttäjätunnus: shosko
  * E-Mail: oskari.kolehmainen@tuni.fi
  *
