@@ -265,9 +265,7 @@ void ask_players(std::vector<Player>& pelaajat, int maara){
     }
 
 }
-void guess_card(){
 
-}
 
 int main()
 {
@@ -287,6 +285,8 @@ int main()
 
     // Lisää koodia
     // More code
+    std::vector<string> koordinaatit;
+
     int maara = ask_player_count();
     if(maara == 1){
         std::cout << "List "<<maara << " player: " ;
@@ -294,27 +294,83 @@ int main()
         std::cout << "List "<<maara << " players: " ;
     }
     ask_players(pelaajat,maara);
+
     /*
     for (unsigned int i = 0; i < pelaajat.size() ; ++i){
         std::cout << pelaajat.at(i).get_name() << std::endl;
     }
     */
-    print(game_board);
-
-    /*
-    int parit = game_board.size()*game_board.at(0).size() / 2 ;
-    int loydetty = 0;
+    unsigned int parit = game_board.size()*game_board.at(0).size() / 2 ;
+    unsigned int loydetty = 0;
+    unsigned int vuoro = 0;
     while (loydetty < parit){
-        for (unsigned int i = 0; i < pelaajat.size(); ++i){
-            loydetty = loydetty + pelaajat.at(i).number_of_pairs();
+        if(vuoro == pelaajat.size()){
+            vuoro = 0;
         }
-        std::cout<<pelaajat.at(0).number_of_pairs() << endl;
+        print(game_board);
+        std::cout << pelaajat.at(vuoro).get_name() << ": " << INPUT_CARDS;
+        string product_str = "";
+        for(int i = 0; i < 4; ++i){
+            std::cin >> product_str;
+            if(product_str == "q"){
+                std::cout << GIVING_UP << std::endl;
+                return EXIT_SUCCESS;
+            } else {
+                koordinaatit.push_back(product_str);
+            }
+        }
+        int eka = stoi_with_check(koordinaatit.at(0))-1;
+        int toka = stoi_with_check(koordinaatit.at(1))-1;
+        int kolmas = stoi_with_check(koordinaatit.at(2))-1;
+        int neljas = stoi_with_check(koordinaatit.at(3))-1;
 
+        std::cout << eka << toka << kolmas << neljas << std::endl;
+        vuoro +=1;
+        loydetty += 1;
+        koordinaatit.clear();
     }
 
-    std::cout << parit << std::endl;
+    for(unsigned int i = 0; i< koordinaatit.size(); ++i){
+        std::cout << koordinaatit.at(i) << std::endl;
+    }
+
+    /*
+    unsigned int parit = game_board.size()*game_board.at(0).size() / 2 ;
+    unsigned int loydetty = 0;
+    while (loydetty < parit){
+        loydetty = 0;
+        pelaajat.at(0).add_card(game_board.at(0).at(0));
+        loydetty += pelaajat.at(0).number_of_pairs();
+        pelaajat.at(0).print();
+    }
+    std::cout << "parit = "<< parit << "loydetty " << loydetty << std::endl;
     pelaajat.at(0).print();
     */
+    /*
+    std::cout << parit << std::endl;
+
+
+    std::vector<int> integers;
+    read_integers(integers);
+    */
+    /*
+    std::cout<<pelaajat.at(0).number_of_pairs() << endl;
+    game_board.at(0).at(0).turn();
+    game_board.at(0).at(1).turn();
+    print(game_board);
+    char kirjain1 = game_board.at(0).at(0).get_letter();
+    char kirjain2 = game_board.at(0).at(1).get_letter();
+    if (kirjain1 == kirjain2){
+        std::cout<< "OK" << std::endl;
+    } else {
+        std::cout<<"EI " << std::endl;
+    }
+    pelaajat.at(0).add_card(game_board.at(0).at(0));
+    std::cout<<pelaajat.at(0).number_of_pairs() << endl;
+    */
+
+
+
 
     return EXIT_SUCCESS;
 }
