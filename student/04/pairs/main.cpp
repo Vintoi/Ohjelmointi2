@@ -357,14 +357,14 @@ int main()
         int toka = stoi_with_check(koordinaatit.at(1))-1;
         int kolmas = stoi_with_check(koordinaatit.at(2))-1;
         int neljas = stoi_with_check(koordinaatit.at(3))-1;
-        std::cout << eka << toka << kolmas << neljas << std::endl;
+        //std::cout << eka << toka << kolmas << neljas << std::endl;
 
         if(eka < 0|| toka < 0 || kolmas <0 || neljas<0){
             std::cout << INVALID_CARD << std::endl;
             koordinaatit.clear();
             continue;
         }
-        std::cout<< game_board.size() << std::endl;
+        //std::cout<< game_board.size() << std::endl;
         if(eka > (int)game_board.size()  ||
                 toka > (int)game_board.at(0).size() ||
                 kolmas > (int)game_board.size() ||
