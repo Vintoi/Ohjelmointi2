@@ -1,7 +1,13 @@
 /* Muistipeli
  *
  * Kuvaus:
- * Ohjelma totetuttaa muistipelin. Toteutus ja kommentit ovat vielä vaiheessa.
+ * Ohjelma totetuttaa muistipelin.
+ * Pelaaja syöttää aluksi parien määrän, siemenluvun, pelaajien määrän ja nimet.
+ * Pelaajat syöttävät vuorollaan kordinaatit kortteihin, jos koordinaatit
+ * ovat oikein (löytyvät taulusta, tai eivät ole jo arvattu, tai eivät ole
+ * sama kortti) kortit kääntyvät.
+ * Jos kortit ovat samat, pelaajalle lisätään pari ja hänen vuoro jatkuu.
+ * Jos paria ei löytynyt vuoro vaihtuu.
  *
  *
  * Ohjelman kirjoittaja
@@ -246,6 +252,8 @@ void ask_product_and_calculate_factors(unsigned int& smaller_factor, unsigned in
 
 // Lisää funktioita
 // More functions
+
+// kysytään käyttäjältä pelaajien määrä
 int ask_player_count(){
     unsigned int product = 0;
     while(!(product > 0))
@@ -257,6 +265,9 @@ int ask_player_count(){
     }
     return product;
 }
+
+// Kysytään käyttäjältä pelaajien nimet
+// ja tallennetaan ne vektoriin
 void ask_players(std::vector<Player>& pelaajat, int maara){
     std::string mjono = " ";
     for(int i = 0; i < maara; ++i){
@@ -265,11 +276,13 @@ void ask_players(std::vector<Player>& pelaajat, int maara){
     }
 
 }
+//tulostetaan kaikkien pelaajien tulokset
 void print_player_scores(std::vector<Player>& pel){
     for (int i = 0; i < (int)pel.size(); ++i){
         pel.at(i).print();
     }
 }
+// tarkistetaan montako paria on löytynyt
 int pairs_found(std::vector<Player>& pel){
     int tulos =0;
     for (int i = 0; i < (int)pel.size(); ++i){
@@ -277,6 +290,7 @@ int pairs_found(std::vector<Player>& pel){
     }
     return tulos;
 }
+// tarkistetaan kuka on voittanut pelin
 void winner(std::vector<Player>& pel){
     int max = 0;
     Player* pelaaja = 0;
@@ -300,6 +314,7 @@ void winner(std::vector<Player>& pel){
         std:: cout << "Tie of " << laskuri << " players with " << max << " pairs." << std::endl;
     }
 }
+
 int main()
 {
     Game_board_type game_board;
@@ -318,30 +333,34 @@ int main()
 
     // Lisää koodia
     // More code
-    std::vector<string> koordinaatit;
 
+    //vektori, johon käyttäjän syöttämät koordinaatit talletetaan
+    std::vector<string> koordinaatit;
+    // tulostettava teksti pelaajien määrän mukaan
     int maara = ask_player_count();
     if(maara == 1){
         std::cout << "List "<<maara << " player: " ;
     } else {
         std::cout << "List "<<maara << " players: " ;
     }
+    //kutustaan fuktiota ask_players
     ask_players(pelaajat,maara);
 
-    /*
-    for (unsigned int i = 0; i < pelaajat.size() ; ++i){
-        std::cout << pelaajat.at(i).get_name() << std::endl;
-    }
-    */
+    //alustetaan muuttujia joita tarvitaan pelin kulun aikana.
     unsigned int parit = game_board.size()*game_board.at(0).size() / 2 ;
     unsigned int loydetty = 0;
     unsigned int vuoro = 0;
     print(game_board);
+
+    //while loop, joka toimii niin pitkään kunnes kaikki parit on löydetty.
     while (loydetty < parit){
-        if(vuoro == pelaajat.size()){
+
+        //tarkistetaan vuorossa oleva pelaaja
+        //jos vuoro >= pelaajien määrän nollataan laskuri
+        if(vuoro >= pelaajat.size()){
             vuoro = 0;
         }
-
+        //kysytään pelaajalta kordinaatit kortteihin
         std::cout << pelaajat.at(vuoro).get_name() << ": " << INPUT_CARDS;
         string product_str = "";
         for(int i = 0; i < 4; ++i){
@@ -353,18 +372,21 @@ int main()
                 koordinaatit.push_back(product_str);
             }
         }
+
+        //muutetaan string muotoiset koordinaatit int muotoisiksi
+        //syöte on 1 suurempi, joten vähennettään siitä -1
         int toka = stoi_with_check(koordinaatit.at(0))-1;
         int eka = stoi_with_check(koordinaatit.at(1))-1;
         int neljas = stoi_with_check(koordinaatit.at(2))-1;
         int kolmas = stoi_with_check(koordinaatit.at(3))-1;
-        //std::cout << eka << toka << kolmas << neljas << std::endl;
-
         if(eka < 0|| toka < 0 || kolmas <0 || neljas<0){
             std::cout << INVALID_CARD << std::endl;
             koordinaatit.clear();
             continue;
         }
-        //std::cout<< game_board.size() << std::endl;
+
+        //ensimmäinen virhesyöte
+        //jos syöte menee laudan ohi, tulostetan ilmoitus ja palataan alkuun
         if(eka > (int)game_board.size()  ||
                 toka > (int)game_board.at(0).size() ||
                 kolmas > (int)game_board.size() ||
@@ -373,20 +395,36 @@ int main()
             koordinaatit.clear();
             continue;
         }
+
+        //toinen virhesyöte
+        //jos syöteet ovat samat, tulostetan ilmoitus ja palataan alkuun
         if (eka == kolmas && toka == neljas) {
             std::cout << INVALID_CARD << std::endl;
             koordinaatit.clear();
             continue;
         }
+
+        // kolmas virheilmoitus
+        // jos syöte osuu tyhjään korttiin, tulostetan ilmoitus ja palataan alkuun
         if(game_board.at(eka).at(toka).get_visibility()== EMPTY ||
                 game_board.at(kolmas).at(neljas).get_visibility()== EMPTY){
             std::cout << INVALID_CARD << std::endl;
             koordinaatit.clear();
             continue;
         }
+
+        //jos syöte oli validi, käännetään kaksi korttia
         game_board.at(eka).at(toka).turn();
         game_board.at(kolmas).at(neljas).turn();
         print(game_board);
+
+        // jos löytyy pari, toteutetaan seuraavat toiminnot
+        // muutetaan näiden korttien näkyvyys tyhjäksi.
+        // lisätään pelaajalle pari.
+        // tulostetaan pelaajien tulokset
+        // tulostetaan pelikenttä
+        // tyhjennetään koordinaatit vektori
+        // lasketaan löydettyjen korttien määrä
         if(game_board.at(eka).at(toka).get_letter() == game_board.at(kolmas).at(neljas).get_letter()){
             std::cout << FOUND << std::endl;
             game_board.at(eka).at(toka).set_visibility(EMPTY);
@@ -396,10 +434,15 @@ int main()
             print(game_board);
             koordinaatit.clear();
             loydetty = pairs_found(pelaajat);
-
             continue;
         }
-
+        // jos paria ei löytynyt
+        // tulostetaan pelaajien tulokset
+        // käänetään löytyneet kortit takaisin
+        // tulostetaan pelikenttä
+        // tyhjennetään koordinaatit vektori
+        // vaihdetaan pelivuoroa
+        // lasketaan löydettyjen korttien määrä
         if(game_board.at(eka).at(toka).get_letter() != game_board.at(kolmas).at(neljas).get_letter()){
             std::cout << NOT_FOUND << std::endl;
             print_player_scores(pelaajat);
@@ -409,56 +452,13 @@ int main()
             koordinaatit.clear();
             vuoro +=1;
             loydetty = pairs_found(pelaajat);
-
         }
-
     }
-    //print(game_board);
+
+    //peli päättyy
+    //selvitetään voittaja
     std::cout<<GAME_OVER << std::endl;
     winner(pelaajat);
-    /*
-    for(unsigned int i = 0; i< koordinaatit.size(); ++i){
-        std::cout << koordinaatit.at(i) << std::endl;
-    }
-    */
-    /*
-    unsigned int parit = game_board.size()*game_board.at(0).size() / 2 ;
-    unsigned int loydetty = 0;
-    while (loydetty < parit){
-        loydetty = 0;
-        pelaajat.at(0).add_card(game_board.at(0).at(0));
-        loydetty += pelaajat.at(0).number_of_pairs();
-        pelaajat.at(0).print();
-    }
-    std::cout << "parit = "<< parit << "loydetty " << loydetty << std::endl;
-    pelaajat.at(0).print();
-    */
-    /*
-    std::cout << parit << std::endl;
-
-
-    std::vector<int> integers;
-    read_integers(integers);
-    */
-    /*
-    std::cout<<pelaajat.at(0).number_of_pairs() << endl;
-    game_board.at(0).at(0).turn();
-    game_board.at(0).at(1).turn();
-    print(game_board);
-    char kirjain1 = game_board.at(0).at(0).get_letter();
-    char kirjain2 = game_board.at(0).at(1).get_letter();
-    if (kirjain1 == kirjain2){
-        std::cout<< "OK" << std::endl;
-    } else {
-        std::cout<<"EI " << std::endl;
-    }
-    pelaajat.at(0).add_card(game_board.at(0).at(0));
-    std::cout<<pelaajat.at(0).number_of_pairs() << endl;
-    */
-
-
-
-
     return EXIT_SUCCESS;
 }
 
