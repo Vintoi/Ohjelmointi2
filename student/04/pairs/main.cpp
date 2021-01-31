@@ -297,7 +297,7 @@ void winner(std::vector<Player>& pel){
                   << pelaaja->number_of_pairs() << " pairs." << std::endl;
 
     } else {
-        std:: cout << "Tie of " << laskuri << " players with " << max << "pairs." << std::endl;
+        std:: cout << "Tie of " << laskuri << " players with " << max << " pairs." << std::endl;
     }
 }
 int main()
@@ -336,12 +336,12 @@ int main()
     unsigned int parit = game_board.size()*game_board.at(0).size() / 2 ;
     unsigned int loydetty = 0;
     unsigned int vuoro = 0;
-
+    print(game_board);
     while (loydetty < parit){
         if(vuoro == pelaajat.size()){
             vuoro = 0;
         }
-        print(game_board);
+
         std::cout << pelaajat.at(vuoro).get_name() << ": " << INPUT_CARDS;
         string product_str = "";
         for(int i = 0; i < 4; ++i){
@@ -395,6 +395,7 @@ int main()
             print_player_scores(pelaajat);
             koordinaatit.clear();
             loydetty = pairs_found(pelaajat);
+            print(game_board);
             continue;
         }
 
@@ -406,9 +407,11 @@ int main()
             koordinaatit.clear();
             vuoro +=1;
             loydetty = pairs_found(pelaajat);
+
         }
 
     }
+    print(game_board);
     std::cout<<GAME_OVER << std::endl;
     winner(pelaajat);
     /*

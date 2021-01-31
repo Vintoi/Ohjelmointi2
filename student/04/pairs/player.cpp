@@ -34,7 +34,7 @@ void Player::add_card(Card &card)
 
 void Player::print() const
 {
-    std::cout<< "*** "<< name_ << " has "<< number_of_pairs() << " pair(s)" <<std::endl;
+    std::cout<< "*** "<< name_ << " has "<< number_of_pairs() << " pair(s)." <<std::endl;
 }
 
 
