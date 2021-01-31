@@ -353,10 +353,10 @@ int main()
                 koordinaatit.push_back(product_str);
             }
         }
-        int eka = stoi_with_check(koordinaatit.at(0))-1;
-        int toka = stoi_with_check(koordinaatit.at(1))-1;
-        int kolmas = stoi_with_check(koordinaatit.at(2))-1;
-        int neljas = stoi_with_check(koordinaatit.at(3))-1;
+        int toka = stoi_with_check(koordinaatit.at(0))-1;
+        int eka = stoi_with_check(koordinaatit.at(1))-1;
+        int neljas = stoi_with_check(koordinaatit.at(2))-1;
+        int kolmas = stoi_with_check(koordinaatit.at(3))-1;
         //std::cout << eka << toka << kolmas << neljas << std::endl;
 
         if(eka < 0|| toka < 0 || kolmas <0 || neljas<0){
