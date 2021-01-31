@@ -277,6 +277,29 @@ int pairs_found(std::vector<Player>& pel){
     }
     return tulos;
 }
+void winner(std::vector<Player>& pel){
+    int max = 0;
+    Player* pelaaja = 0;
+    for (int i = 0; i < (int)pel.size(); ++i){
+        if ((int)pel.at(i).number_of_pairs() > max){
+            max = (int)pel.at(i).number_of_pairs();
+            pelaaja = &pel.at(i);
+        }
+    }
+    int laskuri = 0;
+    for (int i = 0; i < (int)pel.size(); ++i){
+        if ((int)pel.at(i).number_of_pairs() == max){
+            laskuri += 1;
+        }
+    }
+    if (laskuri == 1){
+        std::cout << pelaaja->get_name() << " has won with "
+                  << pelaaja->number_of_pairs() << " pairs." << std::endl;
+
+    } else {
+        std:: cout << "Tie of " << laskuri << " players with " << max << "pairs." << std::endl;
+    }
+}
 int main()
 {
     Game_board_type game_board;
@@ -355,8 +378,8 @@ int main()
             koordinaatit.clear();
             continue;
         }
-        if(game_board.at(eka).at(toka).get_letter() == EMPTY_CHAR ||
-                game_board.at(kolmas).at(neljas).get_letter() == EMPTY_CHAR){
+        if(game_board.at(eka).at(toka).get_visibility()== EMPTY ||
+                game_board.at(kolmas).at(neljas).get_visibility()== EMPTY){
             std::cout << INVALID_CARD << std::endl;
             koordinaatit.clear();
             continue;
@@ -374,17 +397,20 @@ int main()
             loydetty = pairs_found(pelaajat);
             continue;
         }
-        /*
+
         if(game_board.at(eka).at(toka).get_letter() != game_board.at(kolmas).at(neljas).get_letter()){
-            std::cout <<
+            std::cout << NOT_FOUND << std::endl;
+            print_player_scores(pelaajat);
+            game_board.at(eka).at(toka).turn();
+            game_board.at(kolmas).at(neljas).turn();
+            koordinaatit.clear();
+            vuoro +=1;
+            loydetty = pairs_found(pelaajat);
         }
-        */
-        koordinaatit.clear();
-        vuoro +=1;
-        loydetty = pairs_found(pelaajat);
 
     }
-
+    std::cout<<GAME_OVER << std::endl;
+    winner(pelaajat);
     /*
     for(unsigned int i = 0; i< koordinaatit.size(); ++i){
         std::cout << koordinaatit.at(i) << std::endl;
