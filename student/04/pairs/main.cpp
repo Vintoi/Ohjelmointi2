@@ -413,7 +413,7 @@ int main()
         }
 
     }
-    print(game_board);
+    //print(game_board);
     std::cout<<GAME_OVER << std::endl;
     winner(pelaajat);
     /*
