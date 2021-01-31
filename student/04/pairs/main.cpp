@@ -393,9 +393,10 @@ int main()
             game_board.at(kolmas).at(neljas).set_visibility(EMPTY);
             pelaajat.at(vuoro).add_card(game_board.at(eka).at(toka));
             print_player_scores(pelaajat);
+            print(game_board);
             koordinaatit.clear();
             loydetty = pairs_found(pelaajat);
-            print(game_board);
+
             continue;
         }
 
@@ -404,6 +405,7 @@ int main()
             print_player_scores(pelaajat);
             game_board.at(eka).at(toka).turn();
             game_board.at(kolmas).at(neljas).turn();
+            print(game_board);
             koordinaatit.clear();
             vuoro +=1;
             loydetty = pairs_found(pelaajat);
