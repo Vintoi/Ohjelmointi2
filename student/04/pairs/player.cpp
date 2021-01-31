@@ -13,7 +13,6 @@
 Player::Player(const std::string &name):
     name_(name),parit_(0)
 {
-
 }
 
 std::string Player::get_name() const

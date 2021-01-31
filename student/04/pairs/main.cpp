@@ -265,8 +265,18 @@ void ask_players(std::vector<Player>& pelaajat, int maara){
     }
 
 }
-
-
+void print_player_scores(std::vector<Player>& pel){
+    for (int i = 0; i < (int)pel.size(); ++i){
+        pel.at(i).print();
+    }
+}
+int pairs_found(std::vector<Player>& pel){
+    int tulos =0;
+    for (int i = 0; i < (int)pel.size(); ++i){
+        tulos += pel.at(i).number_of_pairs();
+    }
+    return tulos;
+}
 int main()
 {
     Game_board_type game_board;
@@ -303,6 +313,7 @@ int main()
     unsigned int parit = game_board.size()*game_board.at(0).size() / 2 ;
     unsigned int loydetty = 0;
     unsigned int vuoro = 0;
+
     while (loydetty < parit){
         if(vuoro == pelaajat.size()){
             vuoro = 0;
@@ -323,17 +334,62 @@ int main()
         int toka = stoi_with_check(koordinaatit.at(1))-1;
         int kolmas = stoi_with_check(koordinaatit.at(2))-1;
         int neljas = stoi_with_check(koordinaatit.at(3))-1;
-
         std::cout << eka << toka << kolmas << neljas << std::endl;
-        vuoro +=1;
-        loydetty += 1;
+
+        if(eka < 0|| toka < 0 || kolmas <0 || neljas<0){
+            std::cout << INVALID_CARD << std::endl;
+            koordinaatit.clear();
+            continue;
+        }
+        std::cout<< game_board.size() << std::endl;
+        if(eka > (int)game_board.size()  ||
+                toka > (int)game_board.at(0).size() ||
+                kolmas > (int)game_board.size() ||
+                neljas > (int)game_board.at(0).size()){
+            std::cout << INVALID_CARD << std::endl;
+            koordinaatit.clear();
+            continue;
+        }
+        if (eka == kolmas && toka == neljas) {
+            std::cout << INVALID_CARD << std::endl;
+            koordinaatit.clear();
+            continue;
+        }
+        if(game_board.at(eka).at(toka).get_letter() == EMPTY_CHAR ||
+                game_board.at(kolmas).at(neljas).get_letter() == EMPTY_CHAR){
+            std::cout << INVALID_CARD << std::endl;
+            koordinaatit.clear();
+            continue;
+        }
+        game_board.at(eka).at(toka).turn();
+        game_board.at(kolmas).at(neljas).turn();
+        print(game_board);
+        if(game_board.at(eka).at(toka).get_letter() == game_board.at(kolmas).at(neljas).get_letter()){
+            std::cout << FOUND << std::endl;
+            game_board.at(eka).at(toka).set_visibility(EMPTY);
+            game_board.at(kolmas).at(neljas).set_visibility(EMPTY);
+            pelaajat.at(vuoro).add_card(game_board.at(eka).at(toka));
+            print_player_scores(pelaajat);
+            koordinaatit.clear();
+            loydetty = pairs_found(pelaajat);
+            continue;
+        }
+        /*
+        if(game_board.at(eka).at(toka).get_letter() != game_board.at(kolmas).at(neljas).get_letter()){
+            std::cout <<
+        }
+        */
         koordinaatit.clear();
+        vuoro +=1;
+        loydetty = pairs_found(pelaajat);
+
     }
 
+    /*
     for(unsigned int i = 0; i< koordinaatit.size(); ++i){
         std::cout << koordinaatit.at(i) << std::endl;
     }
-
+    */
     /*
     unsigned int parit = game_board.size()*game_board.at(0).size() / 2 ;
     unsigned int loydetty = 0;
