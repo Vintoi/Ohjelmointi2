@@ -20,7 +20,12 @@ int main()
         }
 
         // TODO: implement your solution here
+        if(word.size() > 1){
         shuffle(word.begin()+1,word.end()-1,generator);
         std::cout << word << std::endl;
+        } else {
+            std::cout << word << std::endl;
+        }
+
     }
 }

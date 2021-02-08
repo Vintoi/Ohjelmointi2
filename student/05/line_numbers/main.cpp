@@ -29,6 +29,7 @@ int main()
         int rivinumero = 1;
         string rivi;
         while(getline(input_olio,rivi)){
+
             output_olio << rivinumero << " " << rivi <<endl;
             rivinumero++;
         }
