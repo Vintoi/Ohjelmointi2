@@ -47,7 +47,7 @@ int main()
         return EXIT_FAILURE;
     } else {
         string rivi,sana;
-        int rivi_nro;
+        int rivi_nro = 1;
         while (getline(input_olio,rivi)){
             vector<string> rivilta = split(rivi,' ');
             for (int i = 0; i < int(rivilta.size()); i++){
@@ -64,6 +64,14 @@ int main()
     }
     for (auto tulos : tulokset){
         cout << tulos.first << " "<< tulos.second.size() << ": " << endl;
+        for (int kerta : tulos.second){
+            tulos.second.erase(kerta);
+            if (tulos.second.empty()){
+                cout << kerta << endl;
+            } else {
+                cout <<kerta << ",";
+            }
+        }
     }
-
 }
+
