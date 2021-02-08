@@ -18,13 +18,14 @@ int main()
     ofstream output_olio;
 
     input_olio.open(input_file);
-    output_olio.open(output_file);
+
 
     if (not input_olio){
         output_olio.close();
-        cout << "Error! The File " << input_file << " cannot be opened." << endl;
+        cout << "Error! The file " << input_file << " cannot be opened." << endl;
         return EXIT_FAILURE;
     } else {
+        output_olio.open(output_file);
         int rivinumero = 1;
         string rivi;
         while(getline(input_olio,rivi)){
@@ -32,7 +33,6 @@ int main()
             rivinumero++;
         }
     }
-
     output_olio.close();
     input_olio.close();
     return EXIT_SUCCESS;
