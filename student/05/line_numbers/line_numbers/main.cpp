@@ -19,7 +19,8 @@ int main()
 
     input_olio.open(input_file);
     output_olio.open(output_file);
-    if (!input_olio){
+
+    if (not input_olio){
         output_olio.close();
         cout << "Error! The File " << input_file << " cannot be opened." << endl;
         return EXIT_FAILURE;
