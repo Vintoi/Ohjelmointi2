@@ -63,7 +63,7 @@ int main()
         }
     }
     for (auto tulos : tulokset){
-        cout << tulos.first << " "<< tulos.second.size() << ": " << endl;
+        cout << tulos.first << " "<< tulos.second.size() << ": ";
         for (int kerta : tulos.second){
             tulos.second.erase(kerta);
             if (tulos.second.empty()){
