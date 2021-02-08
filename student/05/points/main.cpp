@@ -39,7 +39,10 @@ int main()
         }
 
     }
-
+    cout <<"Final scores: " << endl;
+    for (auto tiedot : tulokset){
+        cout << tiedot.first << ": " << tiedot.second << endl;
+    }
 
     input_olio.close();
     //output_olio.close();
