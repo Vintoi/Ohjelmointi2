@@ -69,7 +69,7 @@ int main()
             if (tulos.second.empty()){
                 cout << kerta << endl;
             } else {
-                cout <<kerta << ",";
+                cout <<kerta << ", ";
             }
         }
     }
